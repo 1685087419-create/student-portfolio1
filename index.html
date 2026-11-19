@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="LI ZEKAI의 가상 경험 기반 크리에이티브 비즈니스 포트폴리오">
+  <title>LI ZEKAI — Creative Business Portfolio</title>
+  <style>
+    :root {
+      --bg: #090909;
+      --panel: #111111;
+      --panel-2: #171717;
+      --ink: #f4f1eb;
+      --muted: #a5a19a;
+      --line: rgba(255,255,255,.16);
+      --acid: #d6ff3f;
+      --pink: #ff4f9a;
+      --blue: #5a7cff;
+      --orange: #ff7138;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: Inter, Pretendard, "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.65; letter-spacing: -.02em;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(16px);
+      background: rgba(9,9,9,.88); border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .brand { font-size: 14px; font-weight: 900; letter-spacing: .16em; white-space: nowrap; }
+    .brand span { color: var(--acid); }
+    .nav-links { display: flex; align-items: center; gap: clamp(12px, 2.2vw, 28px); }
+    .nav-links a {
+      color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .1em;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--acid); }
+    .nav-cta {
+      border: 1px solid var(--acid); color: var(--acid); padding: 9px 13px;
+      font-size: 10px; font-weight: 800; letter-spacing: .1em; white-space: nowrap;
+    }
+    .hero { padding: 88px 0 72px; border-bottom: 1px solid var(--line); overflow: hidden; }
+    .eyebrow { color: var(--acid); font-size: 10px; font-weight: 900; letter-spacing: .22em; text-transform: uppercase; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 54px; align-items: center; }
+    h1 {
+      margin: 20px 0 18px; font-size: clamp(54px, 8.5vw, 112px); line-height: .88;
+      letter-spacing: -.085em; font-weight: 950;
+    }
+    h1 .outline { color: transparent; -webkit-text-stroke: 1px var(--ink); }
+    .hero-copy { max-width: 570px; color: #c4c0b9; font-size: 15px; }
+    .hero-copy strong { color: var(--ink); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 9px; margin: 28px 0 30px; }
+    .tag {
+      border: 1px solid var(--line); padding: 7px 10px; color: #c8c4bc;
+      font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 44px; padding: 0 17px; border: 1px solid var(--ink);
+      background: var(--ink); color: #090909; font-size: 11px; font-weight: 900;
+      letter-spacing: .08em; cursor: pointer;
+    }
+    .button.secondary { background: transparent; color: var(--ink); }
+    .button:hover { background: var(--acid); border-color: var(--acid); color: #090909; }
+    .scene-motion {
+      position: relative; width: 100%; max-width: 520px; justify-self: end;
+      isolation: isolate; transform-style: preserve-3d; will-change: transform;
+      border: 1px solid rgba(255,255,255,.18); background: #101014;
+      box-shadow: 22px 24px 0 rgba(255,255,255,.045), 0 28px 80px rgba(0,0,0,.6);
+      overflow: hidden; aspect-ratio: 1.08 / 1;
+    }
+    .scene-motion::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: radial-gradient(circle at 22% 18%, rgba(214,255,63,.22), transparent 31%),
+                  radial-gradient(circle at 85% 78%, rgba(255,79,154,.22), transparent 34%),
+                  linear-gradient(135deg, #17171e, #08080a 68%);
+    }
+    .scene-motion svg { display: block; width: 100%; height: 100%; }
+    .scene-caption { max-width: 520px; margin: 14px 0 0 auto; color: var(--muted); font-size: 11px; }
+    .scene-caption b { color: var(--acid); letter-spacing: .1em; }
+    .motion-control {
+      position: absolute; right: 12px; bottom: 12px; z-index: 3;
+      border: 1px solid rgba(255,255,255,.55); background: rgba(8,8,10,.82);
+      color: white; padding: 8px 11px; font-size: 10px; font-weight: 800;
+      cursor: pointer; letter-spacing: .06em;
+    }
+    .motion-control:hover, .motion-control:focus-visible { color: #090909; background: var(--acid); border-color: var(--acid); }
+    section { padding: 86px 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
+    .section-index { color: var(--acid); font-size: 10px; letter-spacing: .2em; font-weight: 900; }
+    h2 { margin: 7px 0 0; font-size: clamp(32px, 5vw, 54px); line-height: 1; letter-spacing: -.06em; }
+    .section-note { max-width: 390px; color: var(--muted); font-size: 12px; }
+    .about-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: 42px; }
+    .profile-stamp { border: 1px solid var(--line); padding: 24px; background: var(--panel); }
+    .profile-stamp .big { color: var(--acid); font-size: 46px; font-weight: 950; line-height: 1; letter-spacing: -.08em; }
+    .profile-stamp p { color: var(--muted); font-size: 12px; margin: 15px 0 0; }
+    .info-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+    .info-row { border-bottom: 1px solid var(--line); padding: 14px 0; }
+    .info-row small { display: block; color: var(--muted); font-size: 9px; letter-spacing: .16em; margin-bottom: 4px; }
+    .info-row b { font-size: 13px; font-weight: 700; }
+    .disclaimer {
+      margin-top: 28px; padding: 14px 16px; border-left: 3px solid var(--pink);
+      background: rgba(255,79,154,.07); color: #d9cbd1; font-size: 11px;
+    }
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .project-card {
+      min-height: 320px; padding: 22px; background: var(--panel); border: 1px solid var(--line);
+      display: flex; flex-direction: column; align-items: flex-start;
+    }
+    .project-card:nth-child(2) { background: #14151b; }
+    .project-card:nth-child(3) { background: #17120f; }
+    .project-no { color: var(--acid); font-size: 10px; letter-spacing: .18em; font-weight: 900; }
+    .project-card h3 { margin: 32px 0 12px; font-size: 23px; line-height: 1.2; letter-spacing: -.05em; }
+    .project-card p { margin: 0 0 22px; color: var(--muted); font-size: 12px; }
+    .project-card button {
+      margin-top: auto; border: 0; border-bottom: 1px solid var(--acid); padding: 7px 0;
+      color: var(--acid); background: transparent; font-size: 10px; font-weight: 900;
+      letter-spacing: .12em; cursor: pointer;
+    }
+    .project-card button:hover { color: white; border-color: white; }
+    .detail-panel {
+      display: none; margin-top: 18px; border: 1px solid var(--acid);
+      padding: 24px; background: #10120b;
+    }
+    .detail-panel.is-open { display: block; }
+    .detail-top { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+    .detail-panel h3 { margin: 0 0 10px; font-size: 21px; }
+    .detail-panel p, .detail-panel li { color: #c8c8bd; font-size: 12px; }
+    .detail-panel ul { padding-left: 18px; }
+    .close-detail { border: 1px solid var(--line); color: var(--ink); background: transparent; padding: 7px 10px; cursor: pointer; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .skill-list { display: grid; gap: 16px; }
+    .skill { border-bottom: 1px solid var(--line); padding-bottom: 13px; }
+    .skill-top { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; }
+    .skill-top span:last-child { color: var(--muted); font-size: 10px; }
+    .skill-bar { height: 2px; margin-top: 10px; background: #333; }
+    .skill-bar i { display: block; height: 100%; background: var(--acid); }
+    .skill-disclaimer { color: var(--muted); font-size: 10px; margin-top: 18px; }
+    .activity-list { border-top: 1px solid var(--line); }
+    .activity-item { display: grid; grid-template-columns: 120px 1fr; gap: 24px; padding: 19px 0; border-bottom: 1px solid var(--line); }
+    .activity-item time { color: var(--acid); font-size: 10px; font-weight: 900; letter-spacing: .1em; }
+    .activity-item h3 { margin: 0 0 5px; font-size: 15px; }
+    .activity-item p { margin: 0; color: var(--muted); font-size: 11px; }
+    .contact-box { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; padding: 34px; border: 1px solid var(--line); background: var(--panel); }
+    .contact-box h3 { margin: 0 0 8px; font-size: clamp(25px, 4vw, 42px); letter-spacing: -.06em; }
+    .contact-box p { margin: 0; color: var(--muted); font-size: 12px; }
+    .email-link { color: var(--acid); font-size: clamp(13px, 2vw, 18px); font-weight: 800; }
+    footer { padding: 28px 0 42px; color: var(--muted); font-size: 10px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    :focus-visible { outline: 2px solid var(--acid); outline-offset: 4px; }
+    @media (max-width: 820px) {
+      .wrap { width: min(100% - 34px, var(--max)); }
+      .nav { min-height: 68px; flex-wrap: wrap; padding: 13px 0; }
+      .nav-links { order: 3; width: 100%; overflow-x: auto; padding: 5px 0 2px; gap: 19px; }
+      .nav-links a { white-space: nowrap; }
+      .nav-cta { margin-left: auto; }
+      .hero { padding: 60px 0 54px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+      .scene-motion { justify-self: center; width: min(100%, 520px); }
+      .scene-caption { margin-left: 0; }
+      .about-grid, .two-col { grid-template-columns: 1fr; gap: 24px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card { min-height: 250px; }
+      section { padding: 65px 0; }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+    @media (max-width: 520px) {
+      h1 { font-size: clamp(52px, 17vw, 78px); }
+      .hero-copy { font-size: 13px; }
+      .info-list { grid-template-columns: 1fr 1fr; gap: 0 14px; }
+      .info-row b { font-size: 11px; }
+      .activity-item { grid-template-columns: 1fr; gap: 5px; }
+      .contact-box { grid-template-columns: 1fr; padding: 24px; }
+      .nav-cta { padding: 8px 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="주요 메뉴">
+      <a class="brand" href="#home" aria-label="맨 위로">LZK<span>.</span> PORTFOLIO</a>
+      <div class="nav-links">
+        <a href="#about">ABOUT</a>
+        <a href="#projects">PROJECTS</a>
+        <a href="#skills">SKILLS</a>
+        <a href="#activities">ACTIVITIES</a>
+        <a href="#contact">CONTACT</a>
+      </div>
+      <a class="nav-cta" href="mailto:1685087419@qq.com">LET'S CONNECT ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Creative Business · Visual Culture · Data</div>
+          <h1>LI<br><span class="outline">ZEKAI</span></h1>
+          <p class="hero-copy">
+            비즈니스의 구조를 이해하고, 이미지와 데이터로 새로운 관점을 만드는
+            <strong>크리에이티브 비즈니스 전공자</strong>입니다.
+            마케팅 전략, 브랜드 경험, 디지털 콘텐츠가 만나는 지점에 관심이 있습니다.
+          </p>
+          <div class="hero-meta">
+            <span class="tag">Business Administration</span>
+            <span class="tag">Brand & Marketing</span>
+            <span class="tag">Photography</span>
+          </div>
+          <div class="hero-actions">
+            <a class="button" href="#projects">프로젝트 보기 ↘</a>
+            <a class="button secondary" href="#contact">연락하기 ↗</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="scene-motion" id="studioScene" aria-label="데이터와 사진을 결합한 가상의 크리에이티브 스튜디오 일러스트">
+            <svg viewBox="0 0 560 520" role="img" aria-labelledby="sceneTitle sceneDesc" xmlns="http://www.w3.org/2000/svg">
+              <title id="sceneTitle">NEON DATA STUDIO</title>
+              <desc id="sceneDesc">강렬한 라임, 핑크, 블루 색상과 입체적인 모니터, 데이터 패널, 카메라 오브젝트로 구성된 미래형 데이터 스튜디오.</desc>
+              <defs>
+                <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#d6ff3f"/><stop offset="1" stop-color="#6dffba"/>
+                </linearGradient>
+                <linearGradient id="pinkGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#ff9bc5"/><stop offset="1" stop-color="#ff287e"/>
+                </linearGradient>
+                <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#9db0ff"/><stop offset="1" stop-color="#465bff"/>
+                </linearGradient>
+                <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="9"/>
+                  <feOffset dx="8" dy="13" result="offset"/>
+                  <feComponentTransfer><feFuncA type="linear" slope=".55"/></feComponentTransfer>
+                  <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <path d="M28 0H0V28" fill="none" stroke="#fff" stroke-opacity=".09" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="560" height="520" fill="url(#grid)"/>
+              <circle cx="445" cy="105" r="72" fill="none" stroke="#ff4f9a" stroke-width="1" stroke-dasharray="4 8" opacity=".8"/>
+              <circle cx="445" cy="105" r="48" fill="none" stroke="#d6ff3f" stroke-width="1" opacity=".65"/>
+              <path d="M38 410L520 410" stroke="#fff" stroke-opacity=".22"/>
+              <path d="M64 80L174 80M64 91L132 91" stroke="#d6ff3f" stroke-width="3"/>
+              <text x="64" y="62" fill="#f5f2e9" font-size="12" font-weight="800" letter-spacing="4">XTRA / DATA / LAB</text>
+              <g filter="url(#shadow)">
+                <path d="M106 172L348 132L411 170L168 214Z" fill="#34343c"/>
+                <path d="M106 172L168 214V366L106 324Z" fill="#17171d"/>
+                <path d="M168 214L411 170V322L168 366Z" fill="#24242d" stroke="#777" stroke-opacity=".5"/>
+                <path d="M184 228L394 190V302L184 341Z" fill="#090b0c"/>
+                <path d="M184 228L394 190V302L184 341Z" fill="url(#screen)" opacity=".12"/>
+                <path d="M203 315L235 286L264 300L304 249L337 265L374 222" fill="none" stroke="#d6ff3f" stroke-width="4"/>
+                <path d="M203 326L235 311L264 316L304 287L337 293L374 266" fill="none" stroke="#ff4f9a" stroke-width="2"/>
+                <g fill="#d6ff3f">
+                  <circle cx="235" cy="286" r="4"/><circle cx="304" cy="249" r="4"/><circle cx="374" cy="222" r="4"/>
+                </g>
+                <path d="M270 366L270 396L228 410L336 410L302 394L302 360Z" fill="#555660"/>
+                <path d="M228 410L336 410L350 420L211 420Z" fill="#a5a5ac"/>
+              </g>
+              <g filter="url(#shadow)">
+                <path d="M370 270L467 252L510 279L412 299Z" fill="url(#pinkGrad)"/>
+                <path d="M412 299L510 279V344L412 365Z" fill="#a51c59"/>
+                <path d="M370 270L412 299V365L370 336Z" fill="#68133d"/>
+                <circle cx="440" cy="316" r="18" fill="#111" stroke="#ffb3d2" stroke-width="4"/>
+                <circle cx="440" cy="316" r="8" fill="#5367ff"/>
+              </g>
+              <g filter="url(#shadow)">
+                <path d="M75 265L135 252L161 270L101 284Z" fill="url(#blueGrad)"/>
+                <path d="M101 284L161 270V319L101 334Z" fill="#2937a7"/>
+                <path d="M75 265L101 284V334L75 315Z" fill="#1b246e"/>
+                <rect x="111" y="294" width="32" height="4" transform="rotate(-13 111 294)" fill="#d6ff3f"/>
+                <rect x="111" y="305" width="22" height="4" transform="rotate(-13 111 305)" fill="#fff"/>
+              </g>
+              <g>
+                <path d="M58 452L502 452" stroke="#d6ff3f" stroke-width="2"/>
+                <text x="60" y="477" fill="#f4f1eb" font-size="17" font-weight="900" letter-spacing="3">NEON DATA STUDIO</text>
+                <text x="60" y="496" fill="#aaa" font-size="9" letter-spacing="2">OBSERVE · ANALYZE · CREATE</text>
+                <rect x="452" y="464" width="42" height="22" fill="#d6ff3f"/>
+                <text x="473" y="479" text-anchor="middle" fill="#090909" font-size="9" font-weight="900">LZK</text>
+              </g>
+              <g fill="#ff4f9a">
+                <circle cx="492" cy="60" r="5"/><circle cx="470" cy="75" r="2"/><circle cx="88" cy="143" r="3"/>
+              </g>
+              <g stroke="#d6ff3f" stroke-width="2">
+                <path d="M450 380l18 -18m-18 0l18 18"/>
+                <path d="M64 365l12 -12m-12 0l12 12"/>
+              </g>
+            </svg>
+            <button class="motion-control" id="motionToggle" type="button" aria-pressed="false">움직임 일시정지</button>
+          </div>
+          <p class="scene-caption"><b>SCENE 01 /</b> 데이터 모니터와 카메라는 분석적 사고와 시각적 관찰의 결합을 상징합니다. 강렬한 네온 컬러와 실험적인 그래픽은 XG의 대담한 미래지향적 에너지에서 영감을 받은 오리지널 콘셉트입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-index">01 — PROFILE</div><h2>ABOUT ME</h2></div>
+          <p class="section-note">비즈니스의 논리와 크리에이티브한 시선을 함께 탐구합니다.</p>
+        </div>
+        <div class="about-grid">
+          <div class="profile-stamp">
+            <div class="big">LI<br>ZEKAI.</div>
+            <p>BUSINESS ADMINISTRATION<br>CREATIVE THINKING / VISUAL CULTURE</p>
+          </div>
+          <div>
+            <p style="margin-top:0;color:#d8d4cc;font-size:14px">
+              안녕하세요. 저는 한국에서 경영학을 공부하고 있는 LI ZEKAI입니다.
+              경영학 수업을 통해 마케팅, 국제경영, 조직과 정보의 흐름을 배우고 있으며,
+              일상에서는 사진과 패션, 브랜드가 사람들과 소통하는 방식에 관심을 두고 있습니다.
+              서로 다른 문화와 시장을 관찰하며 얻은 인사이트를 실제 비즈니스 문제 해결과
+              콘텐츠 기획에 연결하는 것이 저의 목표입니다.
+            </p>
+            <div class="info-list">
+              <div class="info-row"><small>EDUCATION</small><b>한국 소재 대학 · 경영학과 (학교명 수정)</b></div>
+              <div class="info-row"><small>CAREER INTEREST</small><b>마케팅 / 브랜드 기획</b></div>
+              <div class="info-row"><small>TARGET INDUSTRY</small><b>패션 · 라이프스타일 · 콘텐츠</b></div>
+              <div class="info-row"><small>TARGET COMPANY</small><b>무신사 · 아더에러 · 젠틀몬스터 (희망 기업 예시)</b></div>
+              <div class="info-row"><small>INTERNSHIP COMPANY</small><b>Studio NØIR · 가상 인턴십 설정</b></div>
+              <div class="info-row"><small>COMPETITION</small><b>K-Brand Next Challenge · 가상 공모전</b></div>
+            </div>
+            <div class="disclaimer"><strong>중요 안내 — 가상 포트폴리오:</strong> 이 페이지의 학교명(특정 학교명 미기재), 목표 기업, 인턴십, 대회 및 프로젝트 관련 서술은 포트폴리오 구성 예시를 위한 가상 설정입니다. 실제 소속·수상·참여·성과를 의미하지 않습니다. 공개 또는 제출 전 반드시 본인의 실제 이력으로 수정해 주세요.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-index">02 — SELECTED WORK</div><h2>PROJECTS</h2></div>
+          <p class="section-note">수업에서 익힌 경영 프레임워크를 브랜드와 시장의 관점으로 확장한 가상 프로젝트입니다.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-no">PROJECT 01 / BRAND STRATEGY</div>
+            <h3>글로벌 패션 브랜드의 현지화 전략</h3>
+            <p>시장별 소비자 특성과 브랜드 포지셔닝을 비교하고, 글로벌 일관성과 현지 적응의 균형을 탐구합니다.</p>
+            <button type="button" data-project="0" aria-controls="projectDetail">DETAIL VIEW ↗</button>
+          </article>
+          <article class="project-card">
+            <div class="project-no">PROJECT 02 / DATA INSIGHT</div>
+            <h3>캠퍼스 에너지 수요 데이터 분석</h3>
+            <p>가상의 캠퍼스 전력 수요 데이터를 바탕으로 정보 정리, 패턴 파악, 운영 개선 아이디어를 제안합니다.</p>
+            <button type="button" data-project="1" aria-controls="projectDetail">DETAIL VIEW ↗</button>
+          </article>
+          <article class="project-card">
+            <div class="project-no">PROJECT 03 / CONTENT DESIGN</div>
+            <h3>라이프스타일 브랜드 콘텐츠 기획</h3>
+            <p>사진과 짧은 콘텐츠를 활용해 브랜드의 시각적 톤과 타깃 고객 경험을 설계하는 콘셉트 프로젝트입니다.</p>
+            <button type="button" data-project="2" aria-controls="projectDetail">DETAIL VIEW ↗</button>
+          </article>
+        </div>
+        <div class="detail-panel" id="projectDetail" aria-live="polite">
+          <div class="detail-top">
+            <div><div class="section-index" id="detailIndex">PROJECT DETAIL</div><h3 id="detailTitle">프로젝트 상세</h3></div>
+            <button class="close-detail" id="closeDetail" type="button" aria-label="상세 내용 닫기">CLOSE ×</button>
+          </div>
+          <p id="detailSummary"></p>
+          <ul id="detailPoints"></ul>
+          <p><strong>결과 및 배운 점:</strong> <span id="detailOutcome"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-index">03 — TOOLKIT</div><h2>SKILLS</h2></div>
+          <p class="section-note">학습 및 개인 프로젝트에서 활용하는 도구와 역량을 정리했습니다.</p>
+        </div>
+        <div class="two-col">
+          <div class="skill-list">
+            <div class="skill"><div class="skill-top"><b>MARKETING & STP ANALYSIS</b><span>기초 이해</span></div><div class="skill-bar"><i style="width:66%"></i></div></div>
+            <div class="skill"><div class="skill-top"><b>POWERPOINT / DOCUMENTS</b><span>학습·과제 활용</span></div><div class="skill-bar"><i style="width:72%"></i></div></div>
+            <div class="skill"><div class="skill-top"><b>EXCEL / DATA ORGANIZATION</b><span>기초 활용</span></div><div class="skill-bar"><i style="width:52%"></i></div></div>
+            <div class="skill"><div class="skill-top"><b>AI-ASSISTED RESEARCH</b><span>학습·아이디어 정리</span></div><div class="skill-bar"><i style="width:72%"></i></div></div>
+          </div>
+          <div class="skill-list">
+            <div class="skill"><div class="skill-top"><b>PHOTOGRAPHY / VISUAL OBSERVATION</b><span>개인 관심·활용</span></div><div class="skill-bar"><i style="width:68%"></i></div></div>
+            <div class="skill"><div class="skill-top"><b>KOREAN</b><span>일상·학업 소통</span></div><div class="skill-bar"><i style="width:55%"></i></div></div>
+            <div class="skill"><div class="skill-top"><b>ENGLISH</b><span>기초</span></div><div class="skill-bar"><i style="width:40%"></i></div></div>
+            <div class="skill"><div class="skill-top"><b>CHINESE</b><span>모국어</span></div><div class="skill-bar"><i style="width:100%"></i></div></div>
+          </div>
+        </div>
+        <p class="skill-disclaimer">※ 막대는 자기평가를 시각화한 예시이며 공인 시험 점수나 검증된 숙련도 측정값이 아닙니다. 실제 수준에 맞게 조정해 주세요.</p>
+      </div>
+    </section>
+
+    <section id="activities">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-index">04 — FIELD NOTES</div><h2>ACTIVITIES</h2></div>
+          <p class="section-note">학습과 개인 관심사를 통해 확장한 경험을 기록합니다.</p>
+        </div>
+        <div class="activity-list">
+          <article class="activity-item">
+            <time>2026 — PRESENT</time>
+            <div><h3>한국 유학 및 다문화 환경 경험</h3><p>한국에서 경영학을 공부하며 새로운 생활·학습 환경에 적응하고 다양한 문화적 관점을 접하는 활동. (가상 서술)</p></div>
+          </article>
+          <article class="activity-item">
+            <time>ONGOING</time>
+            <div><h3>개인 사진 기록 및 시각 콘텐츠 탐구</h3><p>도시 공간, 패션, 라이프스타일을 관찰하고 사진으로 기록하며 이미지의 분위기와 브랜드 표현 방식을 연구하는 개인 활동. (가상 서술)</p></div>
+          </article>
+          <article class="activity-item">
+            <time>ACADEMIC</time>
+            <div><h3>경영학 수업 기반 팀 프로젝트 참여</h3><p>시장 분석, 국제경영 사례, 경영정보 관련 주제를 학습하고 팀 단위로 자료를 정리·발표하는 활동 예시. (가상 서술)</p></div>
+          </article>
+        </div>
+        <div class="disclaimer">활동 기록은 실제 참여 사실을 확인한 이력이 아닌 가상 예시입니다. 제출용으로 사용할 경우 실제 활동명·기간·역할로 교체해야 합니다.</div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-index">05 — SAY HELLO</div><h2>CONTACT</h2></div>
+          <p class="section-note">새로운 관점과 협업의 가능성을 환영합니다.</p>
+        </div>
+        <div class="contact-box">
+          <div><h3>LET'S MAKE<br>SOMETHING MEANINGFUL.</h3><p>브랜드, 콘텐츠, 비즈니스에 관한 대화를 기다립니다.</p></div>
+          <a class="email-link" href="mailto:1685087419@qq.com">1685087419@qq.com ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>© 2026 LI ZEKAI — PERSONAL PORTFOLIO</span>
+      <span>ALL EXPERIENCE DETAILS ARE FICTIONAL SAMPLE CONTENT.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Project detail interaction
+    const projectData = [
+      {
+        title: "글로벌 패션 브랜드의 현지화 전략",
+        summary: "글로벌 패션 브랜드가 서로 다른 소비자 문화와 시장 환경에 진입할 때 활용할 수 있는 전략을 분석하는 가상 학습 프로젝트입니다.",
+        points: [
+          "문제 정의: 글로벌 브랜드 이미지의 일관성과 현지 소비자 선호 사이의 균형을 어떻게 맞출 것인가.",
+          "수행 내용: STP 관점에서 타깃 고객과 포지셔닝을 정리하고, 현지화·표준화 전략을 비교합니다.",
+          "활용 방법: 공개된 브랜드 사례를 참고하는 조사 설계 예시이며, 실제 기업 의뢰 프로젝트가 아닙니다."
+        ],
+        outcome: "시장별 고객 이해와 브랜드 포지셔닝의 중요성을 학습하고, 전략을 구조적으로 설명하는 연습을 했다는 설정입니다."
+      },
+      {
+        title: "캠퍼스 에너지 수요 데이터 분석",
+        summary: "캠퍼스의 시간대별 전력 사용량을 가상 데이터로 설정하고, 데이터 정리에서 운영 아이디어 도출까지의 과정을 구성합니다.",
+        points: [
+          "문제 정의: 시간대별 수요 변화를 이해해 에너지 사용 효율을 높일 수 있는 지점을 찾습니다.",
+          "수행 내용: 가상의 표본 데이터를 분류하고, 시간대별 변화와 반복 패턴을 시각적으로 정리합니다.",
+          "활용 방법: 스프레드시트 기반 데이터 정리와 기초 시각화 과정을 제안합니다."
+        ],
+        outcome: "데이터를 단순히 나열하는 데 그치지 않고 의사결정에 연결하는 분석 흐름을 이해하는 것이 목표입니다."
+      },
+      {
+        title: "라이프스타일 브랜드 콘텐츠 기획",
+        summary: "패션·라이프스타일 브랜드의 정체성을 사진과 짧은 디지털 콘텐츠로 전달하는 가상 콘셉트 프로젝트입니다.",
+        points: [
+          "문제 정의: 온라인에서 브랜드의 분위기와 핵심 메시지를 짧은 시간 안에 어떻게 전달할 것인가.",
+          "수행 내용: 타깃 고객, 핵심 키워드, 이미지 톤, 콘텐츠 주제와 게시물 흐름을 설계합니다.",
+          "활용 방법: 개인 사진 관심사를 바탕으로 시각적 레퍼런스와 콘텐츠 캘린더 예시를 구성합니다."
+        ],
+        outcome: "브랜드 메시지와 시각적 표현이 일관될 때 고객 경험이 강화될 수 있다는 점을 탐구합니다."
+      }
+    ];
+
+    const detailPanel = document.getElementById("projectDetail");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailIndex = document.getElementById("detailIndex");
+    const detailSummary = document.getElementById("detailSummary");
+    const detailPoints = document.getElementById("detailPoints");
+    const detailOutcome = document.getElementById("detailOutcome");
+
+    document.querySelectorAll("[data-project]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const index = Number(button.dataset.project);
+        const item = projectData[index];
+        if (!item) return;
+        detailIndex.textContent = `PROJECT 0${index + 1} / DETAIL`;
+        detailTitle.textContent = item.title;
+        detailSummary.textContent = item.summary;
+        detailPoints.replaceChildren(...item.points.map((point) => {
+          const li = document.createElement("li");
+          li.textContent = point;
+          return li;
+        }));
+        detailOutcome.textContent = item.outcome;
+        detailPanel.classList.add("is-open");
+        detailPanel.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
+      });
+    });
+    document.getElementById("closeDetail").addEventListener("click", () => {
+      detailPanel.classList.remove("is-open");
+    });
+
+    // Scene motion: 7-second float, desktop pointer tilt, limited scroll shift.
+    // Motion is disabled for touch-first devices, reduced-motion preference, hidden tabs, or manual pause.
+    (() => {
+      const scene = document.getElementById("studioScene");
+      const toggle = document.getElementById("motionToggle");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const touchMode = window.matchMedia("(hover: none), (pointer: coarse)");
+      let paused = false;
+      let pageHidden = document.hidden;
+      let rafId = 0;
+      let startTime = null;
+      let pointerX = 0;
+      let pointerY = 0;
+      let lastFrame = 0;
+
+      const canAnimate = () => !paused && !pageHidden && !reduceMotion.matches;
+      const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+      function render(timestamp) {
+        if (!canAnimate()) {
+          rafId = 0;
+          return;
+        }
+        if (startTime === null) startTime = timestamp;
+        const elapsed = (timestamp - startTime) / 1000;
+        const phase = (elapsed % 7) / 7;
+        const floatY = Math.sin(phase * Math.PI * 2) * 5;
+
+        // Scroll displacement is capped at 20px; pointer tilt is capped at 4 degrees.
+        const scrollOffset = -Math.min(window.scrollY * 0.025, 20);
+        const tiltX = touchMode.matches ? 0 : pointerY * -4;
+        const tiltY = touchMode.matches ? 0 : pointerX * 4;
+
+        scene.style.transform =
+          `translate3d(0, ${floatY + scrollOffset}px, 0) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        lastFrame = timestamp;
+        rafId = requestAnimationFrame(render);
+      }
+
+      function start() {
+        if (!canAnimate() || rafId) return;
+        startTime = null;
+        rafId = requestAnimationFrame(render);
+      }
+      function stop() {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = 0;
+        scene.style.transform = "translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg)";
+      }
+      function sync() {
+        if (canAnimate()) start();
+        else stop();
+      }
+
+      scene.addEventListener("pointermove", (event) => {
+        if (touchMode.matches || !canAnimate()) return;
+        const rect = scene.getBoundingClientRect();
+        pointerX = clamp((event.clientX - rect.left) / rect.width * 2 - 1, -1, 1);
+        pointerY = clamp((event.clientY - rect.top) / rect.height * 2 - 1, -1, 1);
+      });
+      scene.addEventListener("pointerleave", () => { pointerX = 0; pointerY = 0; });
+
+      window.addEventListener("scroll", () => {
+        // The scene moves upward by up to 20px as the page scrolls down.
+      }, { passive: true });
+
+      toggle.addEventListener("click", () => {
+        paused = !paused;
+        toggle.setAttribute("aria-pressed", String(paused));
+        toggle.textContent = paused ? "움직임 재생" : "움직임 일시정지";
+        sync();
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        pageHidden = document.hidden;
+        sync();
+      });
+      reduceMotion.addEventListener?.("change", sync);
+      touchMode.addEventListener?.("change", () => {
+        pointerX = 0; pointerY = 0; sync();
+      });
+
+      if (reduceMotion.matches) {
+        toggle.textContent = "모션 설정으로 비활성화됨";
+        toggle.disabled = true;
+        toggle.setAttribute("aria-label", "운영체제의 동작 줄이기 설정으로 애니메이션이 비활성화되었습니다");
+      } else {
+        start();
+      }
+    })();
+  </script>
+</body>
+</html>
